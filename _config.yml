@@ -20,7 +20,7 @@ timezone:
 
 title: Naveen Prasanth # the main title
 
-tagline: A text-focused Jekyll theme # it will display as the sub-title
+tagline:  Software/ML Engineer # it will display as the sub-title
 
 description: >- # used by seo meta and the atom feed
   Empowering businesses through cutting-edge backend code, optimized data management, and machine learning to unlock their full potential.
@@ -80,7 +80,7 @@ theme_mode: [light]
 img_cdn:
 
 # the avatar on sidebar, support local or CORS resources
-avatar:
+avatar: /assets/img/pic.jpeg
 
 # boolean type, the global switch for TOC in posts.
 toc: true
