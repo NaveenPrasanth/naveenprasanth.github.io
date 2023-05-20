@@ -5,7 +5,6 @@ categories: [mathematics, numbers]
 tags: [irrational]
 math: true
 mermaid: true
-img_path: /assets/img/
 ---
 
 
@@ -23,7 +22,7 @@ But why would we care about a number that goes on infinitely? more importantly, 
 It cannot! But it can help you find something better. It can tell you how big of a cheese crust you will get in your pizza. How you ask!
 
 
-![The pizza](pizza.png)
+![The pizza](/assets/img/pizza.png)
 
 ### Our options for measuring the length of a circle?
 1. Take a thread, and carefully hold it throughout the out edge of the pizza. Mark the point where we surround the pizza.
@@ -36,7 +35,7 @@ Likewise, we can find irrational numbers in many real-world models.
 
 1. Take a slide that we enjoy in parks, for argument's sake, let's assume the stairs and floor as two adjacent sides of a square. Then the slide will be the hypotenuse of the square. We want to know how much smooth steel we have to buy for the slide. We can use help from Pythagoras to find that $slide^2$ = $4^2$ + $4^2$, 
 ie slide = 4*$\sqrt{2}$
-![The slide](slide.png)
+![The slide](/assets/img/slide.png)
 
 
 
@@ -47,7 +46,7 @@ ie slide = 4*$\sqrt{2}$
 
 3. Golden ratio $\phi$ = *-1.161803...* . The ratio which we see in the branching of trees, spiral pattern in sea shells, arrangement of leaves, and the Human body is also an irrational number. 
 
-![The Golden ratio](golden.png)
+![The Golden ratio](/assets/img/golden.png)
 
 ## TLDR: 
 Irrational numbers are real numbers that cannot be expressed as a fraction or ratio of two integers. They are non-repeating, non-terminating decimal numbers. We might wonder what are the use cases or real-world scenarios where we might need/use them. Irrational numbers exist in nature.
