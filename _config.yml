@@ -26,7 +26,7 @@ description: >- # used by seo meta and the atom feed
   Empowering businesses through cutting-edge backend code, optimized data management, and machine learning to unlock their full potential.
 
 # fill in the protocol & hostname for your site, e.g., 'https://username.github.io'
-url: ""
+url: "/"
 
 github:
   username: naveenprasanth # change to your github username
