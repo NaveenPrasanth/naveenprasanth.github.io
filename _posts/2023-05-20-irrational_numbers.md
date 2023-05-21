@@ -17,7 +17,7 @@ I often think about what kind of problems people would have faced before inventi
 There are infinite numbers between 0 and 1. But there are two sets of infinities within this range,
 1. Numbers that you get from dividing any one integer by another integer. Eg. Splitting a pizza between 5 friends, everyone gets 20% or 0.2 pizza. We all studied how to get the fraction of any real in school like 0.42069.
 2. Numbers that contradict *type 1* . Eg. *1.41421356...*, *3.14159265358979323846...*, *2.71828182845904523536...* 
-The '...' simply means the number goes on and we cannot get a fraction out of this.
+The '...' simply means the number goes on without repeating itself in a pattern and we cannot get a fraction out of this.
 But why would we care about a number that goes on infinitely? more importantly, Can I split a pizza between 5 friends using these numbers?
 It cannot! But it can help you find something better. It can tell you how big of a cheese crust you will get in your pizza. How you ask!
 
@@ -29,6 +29,10 @@ It cannot! But it can help you find something better. It can tell you how big of
 2. Take a ruler, wash it first, then measure the diameter of the pizza. Find the circumference (ie. Cheese crust length) by using 2*$\pi$*r.
 
 You guessed it right, the *3.14159265358979323846...* that we have seen in the example is $\pi$, an irrational number. This number is the ratio between the length that you measured with the ruler and the length that you measured with the thread. So, if you know the diameter of any pizza, you can just compute how many inches of cheese crust you will get in that pizza. 
+
+### Oh wait, $\pi$ is never ending and non-repeating, how to decide when to stop
+It all depends on the problem we are solving and the accuracy we need. In the last millennia, people have come up with
+a lot of cool ways to accurately generate this ratio. In our use cases, we can stop whenever we feel the accuracy is good enough for us. In schools, we would have only used the *3.14* approximation of $\pi$.
 
 So the ratio of its diameter to the circumference of a circle that exists in nature is an Irrational number.
 Likewise, we can find irrational numbers in many real-world models. 
