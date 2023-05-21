@@ -62,5 +62,9 @@ and so much more.
 
 This is the importance of irrational numbers. They fill in the gaps and let us model the world in a consistent, smooth and simple way.
 
+Thanks for your time.
+
+
+
 
 
