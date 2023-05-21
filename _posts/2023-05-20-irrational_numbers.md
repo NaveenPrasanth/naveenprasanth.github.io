@@ -12,7 +12,7 @@ mermaid: true
 For people who don't have energy or time today, there is TLDR at the bottom. I would appreciate it if you come back and read the full blog.
 
 ### Numbers between 0 and 1
-I often think about what kind of problems people would have faced before inventing things and how the invention would solve them. In this pursuit of knowledge, I pondered upon how math would have been before the invention of real numbers. What kind of gaps they were having in their models? That's when I came to an understanding that irrational numbers are natural and part of our existence. 
+I often think about what kind of problems people would have faced before inventing things and how the inventions would have solved them. In pursuit of this knowledge, I pondered how math would have been before the invention of real numbers. What kind of gaps were they having in their models? That’s when I came to an understanding that irrational numbers are natural and part of our existence.
 
 There are infinite numbers between 0 and 1. But there are two sets of infinities within this range,
 1. Numbers that you get from dividing any one integer by another integer. Eg. Splitting a pizza between 5 friends, everyone gets 20% or 0.2 pizza. We all studied how to get the fraction of any real in school like 0.42069.
