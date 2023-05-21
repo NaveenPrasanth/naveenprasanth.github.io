@@ -37,6 +37,8 @@ a lot of cool ways to accurately generate this ratio. In our use cases, we can s
 So the ratio of its diameter to the circumference of a circle that exists in nature is an Irrational number.
 Likewise, we can find irrational numbers in many real-world models. 
 
+### More examples
+
 1. Take a slide that we enjoy in parks, for argument's sake, let's assume the stairs and floor as two adjacent sides of a square. Then the slide will be the hypotenuse of the square. We want to know how much smooth steel we have to buy for the slide. We can use help from Pythagoras to find that $slide^2$ = $4^2$ + $4^2$, 
 ie slide = 4*$\sqrt{2}$
 ![The slide](/assets/img/slide.png)
