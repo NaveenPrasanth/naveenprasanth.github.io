@@ -44,7 +44,7 @@ ie slide = 4*$\sqrt{2}$
 
 2. In continuous exponential growth or exponential decay, the number *2.71828...* also known as Euler's number plays a vital role. It is being used in modeling population growth, compound interest, and radioactive decay.
 
-3. Golden ratio $\phi$ = *-1.161803...* . The ratio which we see in the branching of trees, spiral pattern in sea shells, arrangement of leaves, and the Human body is also an irrational number. 
+3. Golden ratio $\phi$ = *1.161803...* . The ratio which we see in the branching of trees, spiral pattern in sea shells, arrangement of leaves, and the Human body is also an irrational number. 
 
 ![The Golden ratio](/assets/img/golden.png)
 
