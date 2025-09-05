@@ -57,7 +57,7 @@ class AuthManager {
                     console.log('OAuth login detected, waiting before sync...');
                     setTimeout(() => {
                         this.syncWithCloud();
-                    }, 1000); // Wait 1 second for backend session to be fully established
+                    }, 2500); // Wait 2.5 seconds for backend session to be fully established
                 } else {
                     // For existing sessions, validate token first
                     try {
