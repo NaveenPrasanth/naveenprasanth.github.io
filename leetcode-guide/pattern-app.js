@@ -260,6 +260,9 @@ class PatternFocusedApp {
         document.getElementById('problem-detail-view').style.display = 'block';
         
         this.renderProblemDetail();
+        
+        // Always scroll to top when opening a problem for better UX
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     // Rendering Methods
@@ -961,7 +964,7 @@ class PatternFocusedApp {
         }
         
         this.showSyncStatus(false);
-        this.showToast('Logged out successfully', 'success');
+        // Toast message is handled by AuthManager.logout()
     }
 
     // Notes Modal Methods
@@ -1059,16 +1062,38 @@ class PatternFocusedApp {
             <div class="toast-content">
                 <i class="fas fa-${iconMap[type] || 'info'}"></i>
                 <span>${message}</span>
+                <i class="fas fa-times toast-close" style="margin-left: auto; cursor: pointer; opacity: 0.7;" title="Click to dismiss"></i>
             </div>
         `;
 
+        // Add click-to-dismiss functionality
+        const handleDismiss = () => {
+            toast.style.animation = 'slideOutToBottom 0.3s ease-out forwards';
+            setTimeout(() => {
+                if (toast.parentNode) {
+                    toast.remove();
+                }
+            }, 300);
+        };
+
+        // Click anywhere on toast to dismiss
+        toast.addEventListener('click', handleDismiss);
+
+        // Prevent event bubbling on close button
+        const closeBtn = toast.querySelector('.toast-close');
+        closeBtn?.addEventListener('click', (e) => {
+            e.stopPropagation();
+            handleDismiss();
+        });
+
         container.appendChild(toast);
 
-        // Auto remove after duration based on type
-        const duration = type === 'error' ? 5000 : type === 'warning' ? 4000 : 3000;
-        setTimeout(() => {
-            toast.remove();
-        }, duration);
+        // Auto remove after duration (shorter for success, longer for errors)
+        const duration = type === 'error' ? 7000 : type === 'warning' ? 5000 : 3000;
+        const autoRemoveTimeout = setTimeout(handleDismiss, duration);
+
+        // Clear timeout if manually dismissed
+        toast.addEventListener('click', () => clearTimeout(autoRemoveTimeout), { once: true });
     }
 
     showSyncStatus(isOnline = true, customMessage = null) {
