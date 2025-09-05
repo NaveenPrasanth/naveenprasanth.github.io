@@ -849,11 +849,16 @@ class PatternFocusedApp {
             // Update authentication UI
             await this.updateAuthUI();
             
-            // Clear any existing data and load fresh user data from cloud
+            // Clear ALL existing data - both memory and localStorage to prevent user confusion
             this.userProgress = {};
             this.userNotes = {};
             
-            // Load user data from cloud after successful login
+            // Clear localStorage completely to avoid mixing data between users
+            localStorage.removeItem('problemProgress');
+            localStorage.removeItem('problemNotes');
+            console.log('🧹 Cleared local storage on login for fresh user data');
+            
+            // Load fresh user data from cloud after clearing local data
             await this.loadCloudData();
             this.organizeByPatterns();
             
@@ -896,9 +901,16 @@ class PatternFocusedApp {
             // Update authentication UI
             await this.updateAuthUI();
             
-            // Clear data and load fresh user data from cloud
+            // Clear ALL existing data - both memory and localStorage for new user
             this.userProgress = {};
             this.userNotes = {};
+            
+            // Clear localStorage completely for clean start with new account
+            localStorage.removeItem('problemProgress');
+            localStorage.removeItem('problemNotes');
+            console.log('🧹 Cleared local storage for new user registration');
+            
+            // Load fresh user data from cloud (will be empty for new user)
             await this.loadCloudData();
             this.organizeByPatterns();
             
@@ -928,9 +940,15 @@ class PatternFocusedApp {
         // Update authentication UI
         await this.updateAuthUI();
         
-        // Clear current user's data completely - start with empty state
+        // Clear ALL user data - both memory and localStorage to prevent confusion
         this.userProgress = {};
         this.userNotes = {};
+        
+        // Clear localStorage completely to avoid data mixing between users
+        localStorage.removeItem('problemProgress');
+        localStorage.removeItem('problemNotes');
+        console.log('🧹 Cleared all local storage data on logout');
+        
         this.organizeByPatterns();
         
         // Refresh current view
