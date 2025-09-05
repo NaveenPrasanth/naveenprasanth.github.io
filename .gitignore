@@ -34,8 +34,10 @@ leetcode-guide/.env*
 leetcode-guide/dist/
 leetcode-guide/build/
 
+# Cloudflare Workers backend (keep local-only for deployment)
+cloudflare/
+
 # Wrangler development files (Cloudflare Workers)
-cloudflare/.wrangler/
 *.sqlite
 *.sqlite-shm
 *.sqlite-wal
