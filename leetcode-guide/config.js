@@ -37,16 +37,12 @@ class Config {
             return process.env[key] || process.env[`VITE_${key}`];
         }
         
-        // Check for Vite-style environment variables
-        if (typeof import.meta !== 'undefined' && import.meta.env) {
-            return import.meta.env[`VITE_${key}`] || import.meta.env[key];
-        }
-        
         // Check for webpack-style environment variables
         if (typeof __ENV__ !== 'undefined') {
             return __ENV__[key];
         }
         
+        // Note: Removed import.meta check since we're loading as regular script, not module
         return null;
     }
 
