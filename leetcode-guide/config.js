@@ -3,10 +3,19 @@
 
 class Config {
     constructor() {
+        // Check if we're running on GitHub Pages or similar production environment
+        const isProduction = window.location.hostname !== 'localhost' && 
+                           window.location.hostname !== '127.0.0.1' && 
+                           !window.location.hostname.includes('localhost');
+        
         // Try to load from environment variables (if available via build process)
-        // or fall back to default values for development
-        this.apiBaseUrl = this.getEnvVar('API_BASE_URL') || this.getEnvVar('VITE_API_BASE_URL') || 'http://localhost:8787';
-        this.environment = this.getEnvVar('NODE_ENV') || 'development';
+        // For production, use your deployed Cloudflare Worker URL or set to null for offline mode
+        this.apiBaseUrl = this.getEnvVar('API_BASE_URL') || 
+                         this.getEnvVar('VITE_API_BASE_URL') || 
+                         (isProduction ? null : 'http://localhost:8787');
+        
+        this.environment = this.getEnvVar('NODE_ENV') || (isProduction ? 'production' : 'development');
+        this.offlineMode = !this.apiBaseUrl; // Enable offline mode if no API URL configured
         
         // Validate required configuration
         this.validateConfig();
@@ -33,13 +42,15 @@ class Config {
 
     validateConfig() {
         if (!this.apiBaseUrl) {
-            console.warn('⚠️  API_BASE_URL not configured. Using default localhost URL.');
-            console.warn('   Set VITE_API_BASE_URL environment variable for production.');
-        }
-        
-        if (this.environment === 'production' && this.apiBaseUrl.includes('localhost')) {
+            console.warn('⚠️  Running in OFFLINE MODE - no API configured.');
+            console.warn('   Authentication and cloud sync features will be disabled.');
+            console.warn('   To enable cloud features, set VITE_API_BASE_URL environment variable.');
+        } else if (this.environment === 'production' && this.apiBaseUrl && this.apiBaseUrl.includes('localhost')) {
             console.error('❌ Production build detected but API_BASE_URL points to localhost!');
             console.error('   Please set VITE_API_BASE_URL to your production API URL.');
+            // Override to offline mode for safety
+            this.apiBaseUrl = null;
+            this.offlineMode = true;
         }
     }
 
@@ -60,10 +71,22 @@ class Config {
         return this.environment === 'development';
     }
 
+    isOfflineMode() {
+        return this.offlineMode;
+    }
+
     // Method to override config for manual setup (fallback)
     setApiBaseUrl(url) {
         console.log(`🔧 Manually setting API Base URL to: ${url}`);
         this.apiBaseUrl = url;
+        this.offlineMode = !url;
+    }
+
+    // Method to enable offline mode explicitly
+    enableOfflineMode() {
+        console.log('🔧 Enabling offline mode - disabling cloud features');
+        this.apiBaseUrl = null;
+        this.offlineMode = true;
     }
 }
 
@@ -80,8 +103,9 @@ window.config = config;
 
 // Log configuration on load
 console.log('🚀 Configuration loaded:', {
-    apiBaseUrl: config.getApiBaseUrl(),
-    environment: config.getEnvironment()
+    apiBaseUrl: config.getApiBaseUrl() || 'OFFLINE MODE',
+    environment: config.getEnvironment(),
+    offlineMode: config.isOfflineMode()
 });
 
 export default config;

@@ -2,19 +2,31 @@
 class AuthManager {
     constructor() {
         // Load API URL from configuration (environment variables)
-        this.apiBaseUrl = window.config ? window.config.getApiBaseUrl() : 'http://localhost:8787';
+        this.apiBaseUrl = window.config ? window.config.getApiBaseUrl() : null;
+        this.offlineMode = window.config ? window.config.isOfflineMode() : true;
         this.currentUser = null;
         this.token = localStorage.getItem('auth_token');
         this.syncInProgress = false;
         
         // Log the API URL being used (for debugging)
-        console.log(`🔗 AuthManager using API URL: ${this.apiBaseUrl}`);
+        if (this.offlineMode) {
+            console.log('🔗 AuthManager running in OFFLINE MODE - authentication disabled');
+        } else {
+            console.log(`🔗 AuthManager using API URL: ${this.apiBaseUrl}`);
+        }
         
         // Promise to track when auth initialization is complete
         this.authReadyPromise = this.initializeAuth();
     }
 
     async initializeAuth() {
+        // Skip authentication in offline mode
+        if (this.offlineMode) {
+            console.log('Offline mode: Skipping authentication initialization');
+            this.updateAuthUI(); // Update UI to show offline state
+            return;
+        }
+        
         // Test API connectivity first
         await this.testApiConnection();
         
@@ -43,6 +55,11 @@ class AuthManager {
     }
 
     async testApiConnection() {
+        if (this.offlineMode) {
+            console.log('Offline mode: Skipping API connection test');
+            return;
+        }
+        
         try {
             console.log('Testing API connection to:', `${this.apiBaseUrl}/api/health`);
             const response = await fetch(`${this.apiBaseUrl}/api/health`, {
@@ -93,6 +110,10 @@ class AuthManager {
     }
 
     async register(username, email, password) {
+        if (this.offlineMode) {
+            return { success: false, error: 'Registration unavailable in offline mode. Please check your internet connection.' };
+        }
+        
         try {
             console.log('Attempting registration to:', `${this.apiBaseUrl}/api/auth/register`);
             
@@ -126,6 +147,10 @@ class AuthManager {
     }
 
     async login(username, password) {
+        if (this.offlineMode) {
+            return { success: false, error: 'Login unavailable in offline mode. Please check your internet connection.' };
+        }
+        
         try {
             const response = await fetch(`${this.apiBaseUrl}/api/auth/login`, {
                 method: 'POST',
@@ -186,7 +211,7 @@ class AuthManager {
     }
 
     async syncWithCloud() {
-        if (!this.currentUser || this.syncInProgress) return;
+        if (this.offlineMode || !this.currentUser || this.syncInProgress) return;
 
         this.syncInProgress = true;
         try {

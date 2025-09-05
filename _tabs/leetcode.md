@@ -1,6 +1,6 @@
 ---
 layout: page
-permalink: /leetcode-guide/
+permalink: /leetcode/
 title: LeetCode Guide
 icon: fas fa-brain
 order: 4

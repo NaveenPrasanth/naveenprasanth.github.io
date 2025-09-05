@@ -23,22 +23,26 @@ class PatternFocusedApp {
             // Load problems data and organize by patterns
             await this.loadData();
             
+            // Load local progress and notes first (works offline)
+            this.loadLocalData();
+            
             // Wait for authentication to fully initialize before checking auth status
             console.log('Waiting for authentication initialization...');
             if (window.authManager) {
-                const isAuthenticated = await window.authManager.waitForAuthReady();
-                if (isAuthenticated) {
-                    console.log('User authenticated after init, loading cloud data...');
-                    await this.loadCloudData();
+                // Check if we're in offline mode
+                if (window.authManager.offlineMode) {
+                    console.log('Running in offline mode - using local data only');
                 } else {
-                    console.log('No user authenticated, starting with empty state');
-                    this.userProgress = {};
-                    this.userNotes = {};
+                    const isAuthenticated = await window.authManager.waitForAuthReady();
+                    if (isAuthenticated) {
+                        console.log('User authenticated after init, loading cloud data...');
+                        await this.loadCloudData();
+                    } else {
+                        console.log('No user authenticated, using local data only');
+                    }
                 }
             } else {
-                console.log('AuthManager not available, starting with empty state');
-                this.userProgress = {};
-                this.userNotes = {};
+                console.log('AuthManager not available, using local data only');
             }
             
             this.organizeByPatterns();
@@ -74,6 +78,19 @@ class PatternFocusedApp {
         } catch (error) {
             console.error('Error loading problems:', error);
             this.showToast('Failed to load problems data', 'error');
+        }
+    }
+
+    loadLocalData() {
+        // Load local progress and notes from localStorage (works offline)
+        try {
+            this.userProgress = JSON.parse(localStorage.getItem('problemProgress') || '{}');
+            this.userNotes = JSON.parse(localStorage.getItem('problemNotes') || '{}');
+            console.log(`Loaded local data: ${Object.keys(this.userProgress).length} progress entries, ${Object.keys(this.userNotes).length} notes`);
+        } catch (error) {
+            console.error('Error loading local data:', error);
+            this.userProgress = {};
+            this.userNotes = {};
         }
     }
 
@@ -504,13 +521,25 @@ class PatternFocusedApp {
         // Login button
         const loginBtn = document.getElementById('login-btn');
         if (loginBtn) {
-            loginBtn.addEventListener('click', () => this.showLoginModal());
+            loginBtn.addEventListener('click', () => {
+                if (window.authManager && window.authManager.offlineMode) {
+                    this.showToast('Authentication unavailable in offline mode. Your progress is saved locally.', 'info');
+                    return;
+                }
+                this.showLoginModal();
+            });
         }
 
         // Register button
         const registerBtn = document.getElementById('register-btn');
         if (registerBtn) {
-            registerBtn.addEventListener('click', () => this.showRegisterModal());
+            registerBtn.addEventListener('click', () => {
+                if (window.authManager && window.authManager.offlineMode) {
+                    this.showToast('Registration unavailable in offline mode. Your progress is saved locally.', 'info');
+                    return;
+                }
+                this.showRegisterModal();
+            });
         }
 
         // Logout button
@@ -735,6 +764,16 @@ class PatternFocusedApp {
         const userInfo = document.getElementById('user-info');
         const authButtons = document.getElementById('auth-buttons');
         const userNameEl = document.getElementById('user-name');
+
+        // Check for offline mode first
+        if (window.authManager && window.authManager.offlineMode) {
+            // In offline mode, hide all authentication UI elements
+            if (userInfo) userInfo.style.display = 'none';
+            if (authButtons) authButtons.style.display = 'none';
+            this.showSyncStatus(false, 'Offline Mode');
+            console.log('UI updated for offline mode - authentication hidden');
+            return;
+        }
 
         // Wait for auth to be ready before updating UI
         if (window.authManager) {
@@ -1014,7 +1053,13 @@ class PatternFocusedApp {
         }, duration);
     }
 
-    showSyncStatus(isOnline = true) {
+    showSyncStatus(isOnline = true, customMessage = null) {
+        // Check for offline mode - we'll show status in the header stats area instead
+        if (window.authManager && window.authManager.offlineMode) {
+            this.showOfflineStatus();
+            return;
+        }
+
         const userInfo = document.getElementById('user-info');
         if (!userInfo) return;
 
@@ -1032,6 +1077,25 @@ class PatternFocusedApp {
             syncIndicator.style.display = 'inline';
         } else {
             syncIndicator.style.display = 'none';
+        }
+    }
+
+    showOfflineStatus() {
+        // Add offline indicator to the header stats area
+        const headerStats = document.querySelector('.header-stats');
+        if (!headerStats) return;
+
+        let offlineIndicator = headerStats.querySelector('.offline-indicator');
+        if (!offlineIndicator) {
+            offlineIndicator = document.createElement('div');
+            offlineIndicator.className = 'stat-item offline-indicator';
+            offlineIndicator.innerHTML = `
+                <span class="stat-label">Mode</span>
+                <span class="stat-value" style="color: #f39c12;">
+                    <i class="fas fa-wifi" style="opacity: 0.7;"></i> Offline
+                </span>
+            `;
+            headerStats.appendChild(offlineIndicator);
         }
     }
 }
