@@ -66,17 +66,20 @@ body {
 .stat-label {
     display: block;
     font-size: 0.75rem;
-    color: #64748b;
+    color: #374151;
     text-transform: uppercase;
     letter-spacing: 0.05em;
     margin-bottom: 0.25rem;
+    font-weight: 500;
 }
 
 .stat-value {
     display: block;
     font-size: 1.25rem;
-    font-weight: 600;
-    color: #1e293b;
+    font-weight: 700;
+    color: white !important;
+    background: transparent !important;
+    background-color: transparent !important;
 }
 
 /* Sidebar */
