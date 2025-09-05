@@ -1,0 +1,28 @@
+name = "leetcode-study-api"
+main = "src/index.js"
+compatibility_date = "2024-01-01"
+
+[env.production]
+name = "leetcode-study-api"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "leetcode-study-db"
+database_id = "36fdb551-7675-4200-a75d-ab95a3c7951e"
+
+[vars]
+JWT_SECRET = "your-jwt-secret-here"
+ENVIRONMENT = "production"
+
+# For development
+[env.development]
+name = "leetcode-study-api-dev"
+
+[[env.development.d1_databases]]
+binding = "DB"
+database_name = "leetcode-study-db-dev"
+database_id = "your-dev-database-id-here"
+
+[env.development.vars]
+JWT_SECRET = "your-dev-jwt-secret-here"
+ENVIRONMENT = "development"

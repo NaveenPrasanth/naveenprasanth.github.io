@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LeetCode Study Guide - Interactive</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="pattern-styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1 class="app-title">
+                    <i class="fas fa-code"></i>
+                    LeetCode Study Guide
+                </h1>
+                <div class="header-stats">
+                    <div class="stat-item">
+                        <span class="stat-label">Progress</span>
+                        <span class="stat-value" id="progress-percentage">0%</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Completed</span>
+                        <span class="stat-value" id="completed-count">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Total</span>
+                        <span class="stat-value" id="total-count">0</span>
+                    </div>
+                </div>
+                <div class="user-section">
+                    <div class="user-info" id="user-info" style="display: none;">
+                        <span class="user-name" id="user-name"></span>
+                        <button class="btn btn-sm btn-secondary" id="logout-btn">
+                            <i class="fas fa-sign-out-alt"></i>
+                            Logout
+                        </button>
+                    </div>
+                    <div class="auth-buttons" id="auth-buttons">
+                        <button class="btn btn-sm btn-primary" id="login-btn">
+                            <i class="fas fa-sign-in-alt"></i>
+                            Login
+                        </button>
+                        <button class="btn btn-sm btn-secondary" id="register-btn">
+                            <i class="fas fa-user-plus"></i>
+                            Register
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Sidebar - Hidden in pattern-focused view -->
+        <aside class="sidebar" id="sidebar" style="display: none;">
+            <!-- Sidebar content removed for cleaner UX -->
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content main-content-full">
+            <!-- Pattern Selection View -->
+            <div id="pattern-selection-view" class="pattern-selection-view">
+                <div class="welcome-section">
+                    <h1>🎯 LeetCode Study Guide</h1>
+                    <p>Master coding patterns step by step. Choose a pattern to begin your focused practice.</p>
+                </div>
+
+                <!-- Overall Progress -->
+                <div class="overall-progress">
+                    <h2>Your Progress</h2>
+                    <div class="progress-stats">
+                        <div class="stat-item">
+                            <span class="stat-number" id="total-completed">0</span>
+                            <span class="stat-label">Problems Solved</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number" id="patterns-mastered">0</span>
+                            <span class="stat-label">Patterns Mastered</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number" id="overall-completion">0%</span>
+                            <span class="stat-label">Overall Progress</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Filter and Sort Controls -->
+                <div class="pattern-controls">
+                    <div class="control-section">
+                        <label for="pattern-filter">Filter by Progress:</label>
+                        <select id="pattern-filter" class="control-select">
+                            <option value="all">All Patterns</option>
+                            <option value="not-started">Not Started</option>
+                            <option value="in-progress">In Progress</option>
+                            <option value="completed">Completed</option>
+                        </select>
+                    </div>
+                    <div class="control-section">
+                        <label for="pattern-sort">Sort by:</label>
+                        <select id="pattern-sort" class="control-select">
+                            <option value="pattern-number">Pattern Number</option>
+                            <option value="completion-rate">Completion Rate</option>
+                            <option value="alphabetical">Alphabetical</option>
+                            <option value="total-problems">Total Problems</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Pattern Cards -->
+                <div class="patterns-grid" id="patterns-grid">
+                    <!-- Pattern cards will be dynamically generated -->
+                </div>
+            </div>
+
+            <!-- Pattern Focus View -->
+            <div id="pattern-focus-view" class="pattern-focus-view" style="display: none;">
+                <div class="pattern-header">
+                    <button class="back-btn" id="back-to-patterns">
+                        <i class="fas fa-arrow-left"></i> Back to Patterns
+                    </button>
+                    <div class="pattern-info">
+                        <h1 id="current-pattern-title">Two Pointers</h1>
+                        <p id="current-pattern-description">Master the two pointers technique for efficient array and string problems.</p>
+                    </div>
+                    <div class="pattern-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="pattern-progress-fill"></div>
+                        </div>
+                        <span class="progress-text" id="pattern-progress-text">0 / 0 completed</span>
+                    </div>
+                </div>
+
+                <!-- Problem List for Current Pattern -->
+                <div class="pattern-problems" id="pattern-problems">
+                    <!-- Problems for the selected pattern will be shown here -->
+                </div>
+            </div>
+
+            <!-- Problem Detail View -->
+            <div class="problem-detail-view" id="problem-detail-view" style="display: none;">
+                <div class="detail-header">
+                    <button class="btn btn-secondary" id="back-to-pattern">
+                        <i class="fas fa-arrow-left"></i>
+                        Back to Pattern
+                    </button>
+                    <div class="problem-info">
+                        <h2 id="detail-problem-title">Problem Title</h2>
+                        <div class="problem-meta">
+                            <span class="difficulty" id="detail-difficulty">Medium</span>
+                            <span class="pattern" id="detail-pattern">Two Pointers</span>
+                        </div>
+                    </div>
+                    <div class="problem-actions">
+                        <select class="status-select" id="detail-status-select">
+                            <option value="not-started">Not Started</option>
+                            <option value="in-progress">In Progress</option>
+                            <option value="completed">Completed</option>
+                            <option value="review">Review</option>
+                        </select>
+                        <button class="btn btn-primary" id="detail-notes-btn">
+                            <i class="fas fa-sticky-note"></i>
+                            Notes
+                        </button>
+                        <a href="#" id="detail-leetcode-link" target="_blank" class="btn btn-secondary">
+                            <i class="fas fa-external-link-alt"></i>
+                            LeetCode
+                        </a>
+                    </div>
+                </div>
+                <div class="problem-content" id="problem-content">
+                    <!-- Problem content will be loaded here -->
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div class="loading-spinner" id="loading-spinner">
+        <div class="spinner"></div>
+        <p>Loading problems...</p>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <!-- Authentication Modals -->
+    <div class="modal-overlay" id="modal-overlay" style="display: none;">
+        <!-- Login Modal -->
+        <div class="modal" id="login-modal">
+            <div class="modal-header">
+                <h3>Login to Your Account</h3>
+                <button class="modal-close" id="login-modal-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="login-form">
+                    <div class="form-group">
+                        <label for="login-username">Username or Email</label>
+                        <input type="text" id="login-username" name="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="login-password">Password</label>
+                        <input type="password" id="login-password" name="password" required>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-sign-in-alt"></i>
+                            Login
+                        </button>
+                        <button type="button" class="btn btn-secondary" id="show-register">
+                            Don't have an account? Register
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Register Modal -->
+        <div class="modal" id="register-modal" style="display: none;">
+            <div class="modal-header">
+                <h3>Create New Account</h3>
+                <button class="modal-close" id="register-modal-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="register-form">
+                    <div class="form-group">
+                        <label for="register-username">Username</label>
+                        <input type="text" id="register-username" name="username" required minlength="3">
+                        <small>At least 3 characters</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-email">Email</label>
+                        <input type="email" id="register-email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-password">Password</label>
+                        <input type="password" id="register-password" name="password" required minlength="8">
+                        <small>At least 8 characters</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-confirm-password">Confirm Password</label>
+                        <input type="password" id="register-confirm-password" name="confirmPassword" required>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-user-plus"></i>
+                            Create Account
+                        </button>
+                        <button type="button" class="btn btn-secondary" id="show-login">
+                            Already have an account? Login
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Notes Modal -->
+    <div class="modal-overlay" id="notes-modal-overlay" style="display: none;">
+        <div class="modal notes-modal" id="notes-modal">
+            <div class="modal-header">
+                <h3>Problem Notes</h3>
+                <button class="modal-close" id="notes-modal-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="notes-editor">
+                    <textarea id="notes-textarea" placeholder="Add your notes for this problem..."></textarea>
+                    <div class="notes-actions">
+                        <button class="btn btn-primary" id="save-notes">
+                            <i class="fas fa-save"></i>
+                            Save Notes
+                        </button>
+                        <button class="btn btn-secondary" id="cancel-notes">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="config.js?v=1"></script>
+    <script src="auth.js?v=2"></script>
+    <script src="pattern-app.js?v=2"></script>
+</body>
+</html>

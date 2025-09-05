@@ -45,6 +45,12 @@ jobs:
           ruby-version: 3   # reads from a '.ruby-version' or '.tools-version' file if 'ruby-version' is omitted
           bundler-cache: true
 
+      - name: Configure LeetCode Study Guide Environment
+        run: |
+          # Create production environment file for LeetCode Study Guide
+          echo "VITE_API_BASE_URL=${{ secrets.LEETCODE_API_URL }}" > leetcode-guide/.env.production
+          echo "NODE_ENV=production" >> leetcode-guide/.env.production
+
       - name: Build site
         run: bundle exec jekyll b -d "_site${{ steps.pages.outputs.base_path }}"
         env:

@@ -1,0 +1,521 @@
+/* Pattern-Focused Interface Styles */
+
+/* Update main layout for full-width */
+.app-container {
+    grid-template-areas: 
+        "header"
+        "main" !important;
+    grid-template-columns: 1fr !important;
+}
+
+.sidebar {
+    display: none !important;
+}
+
+.main-content-full {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* Pattern Selection View */
+.pattern-selection-view {
+    animation: fadeIn 0.5s ease-out;
+}
+
+.welcome-section {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.welcome-section h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 0.75rem;
+}
+
+.welcome-section p {
+    font-size: 1.125rem;
+    color: #475569;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* Pattern Controls Section */
+.pattern-controls {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    background: white;
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e2e8f0;
+}
+
+.control-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    min-width: 180px;
+}
+
+.control-section label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 0.25rem;
+}
+
+.control-select {
+    padding: 0.75rem 1rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 0.5rem;
+    background: white;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #374151;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.control-select:hover {
+    border-color: #3b82f6;
+}
+
+.control-select:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+@media (max-width: 768px) {
+    .pattern-controls {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: stretch;
+    }
+    
+    .control-section {
+        min-width: auto;
+    }
+}
+
+/* Overall Progress Section */
+.overall-progress {
+    background: white;
+    border-radius: 0.75rem;
+    padding: 2rem;
+    margin-bottom: 3rem;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e5e7eb;
+}
+
+.overall-progress h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.progress-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1.5rem;
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-number {
+    display: block;
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: #4f46e5;
+    margin-bottom: 0.25rem;
+}
+
+.stat-label {
+    font-size: 0.875rem;
+    color: #64748b;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* Pattern Cards Grid */
+.patterns-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+}
+
+.pattern-card {
+    background: white;
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: 1px solid #e5e7eb;
+    display: flex;
+    flex-direction: column;
+}
+
+.pattern-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+    border-color: #a5b4fc;
+}
+
+.pattern-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+.pattern-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 0.25rem;
+}
+
+.pattern-count {
+    background: #eef2ff;
+    color: #4338ca;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.pattern-description {
+    color: #475569;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+    flex-grow: 1;
+}
+
+.pattern-progress-bar {
+    background: #e5e7eb;
+    border-radius: 9999px;
+    height: 8px;
+    overflow: hidden;
+    margin-bottom: 0.5rem;
+}
+
+.pattern-progress-fill {
+    background: #4f46e5;
+    height: 100%;
+    border-radius: 9999px;
+    transition: width 0.3s ease;
+}
+
+.pattern-progress-text {
+    font-size: 0.75rem;
+    color: #64748b;
+    text-align: right;
+    display: block;
+}
+
+/* Pattern Focus View */
+.pattern-focus-view {
+    animation: slideIn 0.5s ease-out;
+}
+
+.pattern-header {
+    background: white;
+    border-radius: 1rem;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.back-btn {
+    background: #f1f5f9;
+    border: none;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    color: #475569;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.back-btn:hover {
+    background: #e2e8f0;
+    color: #334155;
+}
+
+.pattern-info h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 0.5rem;
+}
+
+.pattern-info p {
+    color: #64748b;
+    font-size: 1.125rem;
+    margin-bottom: 1.5rem;
+}
+
+.progress-bar {
+    background: #f1f5f9;
+    border-radius: 0.5rem;
+    height: 12px;
+    overflow: hidden;
+    margin-bottom: 0.75rem;
+}
+
+.progress-fill {
+    background: linear-gradient(90deg, #667eea, #764ba2);
+    height: 100%;
+    border-radius: 0.5rem;
+    transition: width 0.3s ease;
+}
+
+.progress-text {
+    font-size: 1rem;
+    color: #64748b;
+    font-weight: 500;
+}
+
+/* Pattern Problems List */
+.pattern-problems {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.pattern-problem-card {
+    background: white;
+    border-radius: 0.75rem;
+    padding: 1.25rem 1.5rem;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    transition: all 0.2s ease;
+    cursor: pointer;
+    border: 1px solid #e5e7eb;
+    border-left-width: 4px;
+}
+
+.pattern-problem-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.07);
+    border-color: #a5b4fc;
+}
+
+.pattern-problem-card.completed {
+    border-left-color: #22c55e;
+    background: #f0fdf4;
+}
+
+.pattern-problem-card.in-progress {
+    border-left-color: #f97316;
+    background: #fffbeb;
+}
+
+.pattern-problem-card.review {
+    border-left-color: #8b5cf6;
+    background: #faf5ff;
+}
+
+.problem-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+}
+
+.problem-card-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #1e293b;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.problem-number {
+    background: #eef2ff;
+    color: #4338ca;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.problem-status-badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.problem-status-badge.completed {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.problem-status-badge.in-progress {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.problem-status-badge.review {
+    background: #ede9fe;
+    color: #6b21a8;
+}
+
+.problem-status-badge.not-started {
+    background: #f1f5f9;
+    color: #475569;
+}
+
+/* Conflicting styles removed to unify tag appearance */
+
+/* Problem Card Actions */
+.problem-card-actions {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.quick-action-btn {
+    padding: 0.5rem;
+    border: none;
+    border-radius: 0.375rem;
+    background: #f1f5f9;
+    color: #475569;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.quick-action-btn:hover {
+    background: #e2e8f0;
+    color: #334155;
+}
+
+/* Enhanced Problem Detail View */
+.problem-detail-view .detail-header {
+    background: white;
+    border-radius: 0.75rem;
+    padding: 1.5rem 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e5e7eb;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.problem-detail-view .back-to-pattern {
+    background: #f8fafc;
+    border: 1px solid #e5e7eb;
+    color: #475569;
+}
+
+.problem-info h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 0.5rem;
+}
+
+.problem-meta {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+}
+
+.problem-actions {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+}
+
+.status-select {
+    background-color: #f8fafc;
+    border: 1px solid #d1d5db;
+    border-radius: 0.375rem;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #374151;
+    cursor: pointer;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.status-select:hover {
+    border-color: #a5b4fc;
+}
+
+.status-select:focus {
+    outline: none;
+    border-color: #818cf8;
+    box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.2);
+}
+
+/* Problem Content Area */
+.problem-content {
+    background: white;
+    border-radius: 0.75rem;
+    padding: 2rem;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e5e7eb;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateX(-20px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+/* Responsive Design for Pattern Interface */
+@media (max-width: 768px) {
+    .main-content-full {
+        padding: 1rem;
+    }
+    
+    .welcome-section h1 {
+        font-size: 2rem;
+    }
+    
+    .patterns-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .progress-stats {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .pattern-header {
+        padding: 1.5rem;
+    }
+    
+    .problem-detail-view .detail-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
