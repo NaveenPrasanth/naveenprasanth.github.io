@@ -15,7 +15,17 @@ class Config {
                          (isProduction ? 'https://leetcode-study-api.npsleetcode.workers.dev' : 'http://localhost:8787');
         
         this.environment = this.getEnvVar('NODE_ENV') || (isProduction ? 'production' : 'development');
-        this.offlineMode = !this.apiBaseUrl; // Enable offline mode if no API URL configured
+        
+        // Debug logging to help identify the issue
+        console.log('🔍 Configuration Debug Info:', {
+            hostname: window.location.hostname,
+            isProduction: isProduction,
+            apiBaseUrl: this.apiBaseUrl,
+            environment: this.environment
+        });
+        
+        // Set offline mode only if API URL is explicitly null or empty
+        this.offlineMode = !this.apiBaseUrl || this.apiBaseUrl.trim() === '';
         
         // Validate required configuration
         this.validateConfig();
@@ -51,6 +61,10 @@ class Config {
             // Override to offline mode for safety
             this.apiBaseUrl = null;
             this.offlineMode = true;
+        } else if (this.apiBaseUrl) {
+            console.log('✅ CLOUD MODE - Connected to API:', this.apiBaseUrl);
+            console.log('   Authentication and cloud sync features are enabled.');
+            this.offlineMode = false;
         }
     }
 
