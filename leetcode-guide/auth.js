@@ -28,34 +28,59 @@ class AuthManager {
         }
         
         // Check for OAuth callback with token in URL
-        this.handleOAuthCallback();
+        const isOAuthLogin = this.handleOAuthCallback();
         
         // Test API connectivity first
         await this.testApiConnection();
         
         if (this.token) {
-            try {
-                // Verify token is still valid by making a test request
-                const response = await this.makeAuthenticatedRequest('/api/progress');
-                if (response.ok) {
-                    // Token is valid, get user info from token payload
-                    const payload = this.parseJWT(this.token);
+            // If user info wasn't set by OAuth callback, try to get it from existing token
+            if (!this.currentUser) {
+                const payload = this.parseJWT(this.token);
+                if (payload) {
                     this.currentUser = {
                         id: payload.userId,
                         username: payload.username,
                         email: payload.email,
                         provider: payload.provider || 'password'
                     };
-                    this.updateAuthUI();
-                    this.syncWithCloud();
-                } else {
-                    // Token is invalid, clear it
-                    this.logout();
                 }
-            } catch (error) {
-                console.error('Auth initialization failed:', error);
+            }
+            
+            // If we have user info, update UI and try to sync
+            if (this.currentUser) {
+                console.log('User authenticated:', this.currentUser);
+                this.updateAuthUI();
+                
+                // For OAuth logins, wait a moment before trying to sync to ensure backend session is ready
+                if (isOAuthLogin) {
+                    console.log('OAuth login detected, waiting before sync...');
+                    setTimeout(() => {
+                        this.syncWithCloud();
+                    }, 1000); // Wait 1 second for backend session to be fully established
+                } else {
+                    // For existing sessions, validate token first
+                    try {
+                        const response = await this.makeAuthenticatedRequest('/api/progress');
+                        if (response.ok) {
+                            this.syncWithCloud();
+                        } else {
+                            console.log('Token validation failed, clearing session');
+                            this.logout();
+                        }
+                    } catch (error) {
+                        console.error('Token validation error:', error);
+                        this.logout();
+                    }
+                }
+            } else {
+                // Token exists but can't parse user info - clear it
+                console.log('Invalid token detected, clearing session');
                 this.logout();
             }
+        } else {
+            // No token, ensure UI shows logged out state
+            this.updateAuthUI();
         }
     }
 
@@ -202,12 +227,28 @@ class AuthManager {
             this.token = token;
             localStorage.setItem('auth_token', token);
             
+            // Immediately extract user info from JWT token
+            const payload = this.parseJWT(token);
+            if (payload) {
+                this.currentUser = {
+                    id: payload.userId,
+                    username: payload.username,
+                    email: payload.email,
+                    provider: payload.provider || 'google'
+                };
+                console.log('OAuth user authenticated:', this.currentUser);
+            }
+            
             // Clean up URL
             window.history.replaceState({}, document.title, window.location.pathname);
             
             // Show success message
             this.showToast('Successfully signed in with Google!', 'success');
+            
+            return true; // Indicate successful OAuth login
         }
+        
+        return false;
     }
 
     // Initiate Google OAuth login
