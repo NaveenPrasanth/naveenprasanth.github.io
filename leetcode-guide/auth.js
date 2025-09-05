@@ -27,6 +27,9 @@ class AuthManager {
             return;
         }
         
+        // Check for OAuth callback with token in URL
+        this.handleOAuthCallback();
+        
         // Test API connectivity first
         await this.testApiConnection();
         
@@ -39,7 +42,9 @@ class AuthManager {
                     const payload = this.parseJWT(this.token);
                     this.currentUser = {
                         id: payload.userId,
-                        username: payload.username
+                        username: payload.username,
+                        email: payload.email,
+                        provider: payload.provider || 'password'
                     };
                     this.updateAuthUI();
                     this.syncWithCloud();
@@ -178,6 +183,78 @@ class AuthManager {
         }
     }
 
+    // Handle OAuth callback with token in URL
+    handleOAuthCallback() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const token = urlParams.get('token');
+        const error = urlParams.get('error');
+        
+        if (error) {
+            console.error('OAuth error:', error);
+            this.showToast('Authentication failed. Please try again.', 'error');
+            // Clean up URL
+            window.history.replaceState({}, document.title, window.location.pathname);
+            return;
+        }
+        
+        if (token) {
+            console.log('OAuth token received, setting up authentication');
+            this.token = token;
+            localStorage.setItem('auth_token', token);
+            
+            // Clean up URL
+            window.history.replaceState({}, document.title, window.location.pathname);
+            
+            // Show success message
+            this.showToast('Successfully signed in with Google!', 'success');
+        }
+    }
+
+    // Initiate Google OAuth login
+    async loginWithGoogle() {
+        if (this.offlineMode) {
+            this.showToast('Google Sign-In unavailable in offline mode. Please check your internet connection.', 'error');
+            return { success: false, error: 'Offline mode' };
+        }
+        
+        try {
+            // Redirect to Google OAuth
+            const currentUrl = encodeURIComponent(window.location.href);
+            window.location.href = `${this.apiBaseUrl}/api/auth/google?redirect=${currentUrl}`;
+            return { success: true };
+        } catch (error) {
+            console.error('Google OAuth initiation failed:', error);
+            this.showToast('Failed to initiate Google Sign-In. Please try again.', 'error');
+            return { success: false, error: error.message };
+        }
+    }
+
+    // Show toast notification
+    showToast(message, type = 'info') {
+        // Create toast element
+        const toast = document.createElement('div');
+        toast.className = `toast ${type}`;
+        toast.textContent = message;
+        
+        // Add to container
+        let container = document.getElementById('toast-container');
+        if (!container) {
+            container = document.createElement('div');
+            container.id = 'toast-container';
+            container.className = 'toast-container';
+            document.body.appendChild(container);
+        }
+        
+        container.appendChild(toast);
+        
+        // Auto-remove after 5 seconds
+        setTimeout(() => {
+            if (toast.parentNode) {
+                toast.parentNode.removeChild(toast);
+            }
+        }, 5000);
+    }
+
     async logout() {
         try {
             if (this.token) {
@@ -193,6 +270,7 @@ class AuthManager {
         this.currentUser = null;
         localStorage.removeItem('auth_token');
         this.updateAuthUI();
+        this.showToast('Successfully logged out', 'success');
     }
 
     updateAuthUI() {
@@ -383,3 +461,54 @@ try {
 } catch (error) {
     console.error('Failed to initialize AuthManager:', error);
 }
+
+// Set up Google Sign-In button event handlers
+document.addEventListener('DOMContentLoaded', () => {
+    // Google Sign-In button in login modal
+    const googleLoginBtn = document.getElementById('google-login-btn');
+    if (googleLoginBtn) {
+        googleLoginBtn.addEventListener('click', async (e) => {
+            e.preventDefault();
+            console.log('Google login button clicked');
+            
+            if (window.authManager) {
+                try {
+                    await window.authManager.loginWithGoogle();
+                } catch (error) {
+                    console.error('Google login failed:', error);
+                    // Show error toast if available
+                    if (window.app && window.app.showToast) {
+                        window.app.showToast('Google login failed. Please try again.', 'error');
+                    }
+                }
+            } else {
+                console.error('AuthManager not available');
+            }
+        });
+    }
+
+    // Google Sign-In button in register modal
+    const googleRegisterBtn = document.getElementById('google-register-btn');
+    if (googleRegisterBtn) {
+        googleRegisterBtn.addEventListener('click', async (e) => {
+            e.preventDefault();
+            console.log('Google register button clicked');
+            
+            if (window.authManager) {
+                try {
+                    await window.authManager.loginWithGoogle();
+                } catch (error) {
+                    console.error('Google registration failed:', error);
+                    // Show error toast if available
+                    if (window.app && window.app.showToast) {
+                        window.app.showToast('Google registration failed. Please try again.', 'error');
+                    }
+                }
+            } else {
+                console.error('AuthManager not available');
+            }
+        });
+    }
+
+    console.log('Google Sign-In event handlers initialized');
+});
