@@ -107,12 +107,12 @@ class Config {
 // Create global configuration instance
 const config = new Config();
 
-// Export for ES6 modules
+// Export for CommonJS modules (Node.js)
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = config;
 }
 
-// Make available globally
+// Make available globally for browser usage
 window.config = config;
 
 // Log configuration on load
@@ -122,4 +122,4 @@ console.log('🚀 Configuration loaded:', {
     offlineMode: config.isOfflineMode()
 });
 
-export default config;
+// Note: Removed ES6 export default to work with regular script tags
