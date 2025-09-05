@@ -24,8 +24,15 @@ class Config {
             environment: this.environment
         });
         
-        // Set offline mode only if API URL is explicitly null or empty
-        this.offlineMode = !this.apiBaseUrl || this.apiBaseUrl.trim() === '';
+        // Force cloud mode in production if we have a valid API URL
+        // Don't let transient network issues switch us to offline mode
+        if (isProduction && this.apiBaseUrl && this.apiBaseUrl.includes('leetcode-study-api')) {
+            this.offlineMode = false;
+            console.log('🔒 Production mode: Forcing cloud connectivity to', this.apiBaseUrl);
+        } else {
+            // Set offline mode only if API URL is explicitly null or empty
+            this.offlineMode = !this.apiBaseUrl || this.apiBaseUrl.trim() === '';
+        }
         
         // Validate required configuration
         this.validateConfig();
