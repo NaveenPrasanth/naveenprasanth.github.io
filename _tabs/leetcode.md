@@ -6,60 +6,36 @@ icon: fas fa-brain
 order: 4
 ---
 
-<div id="leetcode-app-container">
-  <!-- LeetCode Study Guide will be loaded here -->
+<div style="text-align: center; padding: 3rem;">
+  <h2>🧠 Interactive LeetCode Study Guide</h2>
+  <p style="font-size: 1.2em; margin-bottom: 2rem;">
+    Pattern-focused algorithmic learning with cloud synchronization and progress tracking.
+  </p>
+  
+  <div style="margin-bottom: 2rem;">
+    <strong>Features:</strong>
+    <ul style="list-style: none; padding: 0;">
+      <li>✅ Pattern-organized problem solving</li>
+      <li>✅ User authentication & cloud sync</li>
+      <li>✅ Progress tracking & personal notes</li>
+      <li>✅ Interactive problem navigation</li>
+    </ul>
+  </div>
+  
+  <a href="{{ '/leetcode-guide/index.html' | relative_url }}" 
+     style="display: inline-block; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+            color: white; padding: 15px 30px; text-decoration: none; border-radius: 8px; 
+            font-size: 1.1em; font-weight: 600; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
+    🚀 Launch LeetCode Study Guide
+  </a>
+  
+  <p style="margin-top: 2rem; font-size: 0.9em; color: #666;">
+    <a href="https://github.com/{{ site.github_username }}" target="_blank">View source code on GitHub</a>
+  </p>
 </div>
 
-<!-- Include LeetCode Study Guide styles -->
-<link rel="stylesheet" href="{{ '/leetcode-guide/styles.css' | relative_url }}">
-<link rel="stylesheet" href="{{ '/leetcode-guide/pattern-styles.css' | relative_url }}">
-
-<!-- Include LeetCode Study Guide scripts -->
-<script src="{{ '/leetcode-guide/config.js' | relative_url }}"></script>
-<script src="{{ '/leetcode-guide/auth.js' | relative_url }}"></script>
-<script src="{{ '/leetcode-guide/pattern-app.js' | relative_url }}"></script>
-
-<script>
-// Initialize the LeetCode Study Guide when page loads
-document.addEventListener('DOMContentLoaded', function() {
-  // Load the main HTML content
-  fetch('{{ "/leetcode-guide/index.html" | relative_url }}')
-    .then(response => response.text())
-    .then(html => {
-      // Extract the body content from the loaded HTML
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(html, 'text/html');
-      const bodyContent = doc.body.innerHTML;
-      
-      // Insert into our container
-      document.getElementById('leetcode-app-container').innerHTML = bodyContent;
-      
-      // Initialize the app
-      if (typeof PatternFocusedApp !== 'undefined') {
-        window.app = new PatternFocusedApp();
-      }
-    })
-    .catch(error => {
-      console.error('Error loading LeetCode Study Guide:', error);
-      document.getElementById('leetcode-app-container').innerHTML = 
-        '<p>Error loading LeetCode Study Guide. <a href="/leetcode-guide/index.html">Click here to access directly.</a></p>';
-    });
-});
-</script>
-
 <style>
-/* Integrate LeetCode Guide styling with Jekyll theme */
-#leetcode-app-container {
-  margin-top: 2rem;
-}
-
-/* Ensure proper spacing and styling */
-.container {
-  max-width: none;
-}
-
-/* Hide Jekyll header for full app experience */
-.post-header {
+.post-title {
   display: none;
 }
 </style>
