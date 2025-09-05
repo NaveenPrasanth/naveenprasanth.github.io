@@ -9,10 +9,10 @@ class Config {
                            !window.location.hostname.includes('localhost');
         
         // Try to load from environment variables (if available via build process)
-        // For production, use your deployed Cloudflare Worker URL or set to null for offline mode
+        // For production, use your deployed Cloudflare Worker URL
         this.apiBaseUrl = this.getEnvVar('API_BASE_URL') || 
                          this.getEnvVar('VITE_API_BASE_URL') || 
-                         (isProduction ? null : 'http://localhost:8787');
+                         (isProduction ? 'https://leetcode-study-api.npsleetcode.workers.dev' : 'http://localhost:8787');
         
         this.environment = this.getEnvVar('NODE_ENV') || (isProduction ? 'production' : 'development');
         this.offlineMode = !this.apiBaseUrl; // Enable offline mode if no API URL configured
