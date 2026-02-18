@@ -1,3 +1,19 @@
+/* Use more horizontal space */
+.page {
+  max-width: 100%;
+  padding-right: 1em;
+}
+
+.archive {
+  max-width: 100%;
+}
+
+@media (min-width: 64em) {
+  .page {
+    padding-right: 2em;
+  }
+}
+
 /* Smooth transitions on all interactive elements */
 a,
 button,
