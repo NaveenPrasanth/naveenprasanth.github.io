@@ -1,6 +1,6 @@
 ---
 title: "ML Building Blocks — What Kaggle Taught Me on Day One"
-date: 2026-02-18
+date: 2024-10-15
 categories:
   - machine-learning
 tags:
