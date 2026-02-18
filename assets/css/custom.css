@@ -1,3 +1,57 @@
+/* Fixed nav bar with deep teal */
+.masthead {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background-color: #1a535c;
+  border-bottom: none;
+}
+
+.masthead__inner-wrap {
+  background-color: #1a535c;
+}
+
+.greedy-nav {
+  background-color: #1a535c;
+}
+
+.greedy-nav a {
+  color: #e0f0f0;
+}
+
+.greedy-nav a:hover {
+  color: #ffffff;
+}
+
+.greedy-nav .site-title {
+  color: #ffffff;
+}
+
+.greedy-nav .site-subtitle {
+  color: #a8d5d8;
+}
+
+.greedy-nav button {
+  color: #e0f0f0;
+}
+
+/* Offset content for fixed nav */
+.initial-content,
+.page {
+  margin-top: 70px;
+}
+
+/* Search icon color */
+.greedy-nav .search__toggle {
+  color: #e0f0f0;
+}
+
+.greedy-nav .search__toggle:hover {
+  color: #ffffff;
+}
+
 /* Wide layout: center content and use full width */
 @media (min-width: 64em) {
   .wide .page__inner-wrap {
