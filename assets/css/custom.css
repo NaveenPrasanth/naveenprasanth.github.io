@@ -38,9 +38,8 @@
 }
 
 /* Offset content for fixed nav */
-.initial-content,
-.page {
-  margin-top: 70px;
+body {
+  padding-top: 70px;
 }
 
 /* Search icon color */
