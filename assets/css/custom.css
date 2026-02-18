@@ -1,17 +1,27 @@
-/* Use more horizontal space */
-.page {
-  max-width: 100%;
-  padding-right: 1em;
+/* Wide layout: center content and use full width */
+@media (min-width: 64em) {
+  .wide .page__inner-wrap {
+    max-width: 900px;
+    margin: 0 auto;
+    float: none;
+  }
+
+  #primary[style] {
+    margin-left: 0 !important;
+  }
+
+  .sidebar {
+    display: none;
+  }
+
+  .page {
+    float: none !important;
+    width: 100% !important;
+  }
 }
 
 .archive {
   max-width: 100%;
-}
-
-@media (min-width: 64em) {
-  .page {
-    padding-right: 2em;
-  }
 }
 
 /* Smooth transitions on all interactive elements */
