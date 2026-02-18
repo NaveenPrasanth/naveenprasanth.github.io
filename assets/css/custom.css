@@ -63,11 +63,7 @@ body {
     margin-left: 0 !important;
   }
 
-  .sidebar {
-    display: none;
-  }
-
-  .page {
+  .wide .page {
     float: none !important;
     width: 100% !important;
   }
