@@ -19,8 +19,4 @@ On the side, I've architected AI platforms as a freelance solutions architect �
   - Thesis: *Standardizing Protocol Documentation Using Clinical Ontologies and Conversational AI*
 - **B.Tech in Computer Science** — Pondicherry Engineering College (2013–2017)
 
-## Community
-
-I'm a co-founder of **Build2Learn**, a monthly developer community focused on rapid, one-day collaborative project builds. I also speak at meetups and GNU/Linux User Groups.
-
 Feel free to reach out via [LinkedIn](https://www.linkedin.com/in/naveen-prasanth-s/) or [GitHub](https://github.com/NaveenPrasanth).
