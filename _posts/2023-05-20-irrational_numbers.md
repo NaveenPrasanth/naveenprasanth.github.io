@@ -1,10 +1,12 @@
 ---
-title: Irrational numbers
-date: 2023-05-20 10:00:00 +0530
-categories: [mathematics, numbers]
-tags: [irrational]
-math: true
-mermaid: true
+title: "Irrational Numbers"
+date: 2023-05-20
+categories:
+  - mathematics
+tags:
+  - irrational numbers
+  - math
+excerpt: "Irrational numbers are natural and part of our existence — from pizza crusts to playground slides."
 ---
 
 

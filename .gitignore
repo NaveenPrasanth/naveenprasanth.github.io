@@ -18,47 +18,6 @@ package-lock.json
 .idea
 .vscode
 
-*/.DS_Store
-
-# Misc
-assets/js/dist
-
-# LeetCode Study Guide - Environment & Secrets
-.env
-.env.local
-.env.production
-.env.development
-leetcode-guide/.env*
-
-# LeetCode Study Guide - Generated files
-leetcode-guide/dist/
-leetcode-guide/build/
-
-# Cloudflare Workers backend (keep local-only for deployment)
-cloudflare/
-
-# Wrangler development files (Cloudflare Workers)
-*.sqlite
-*.sqlite-shm
-*.sqlite-wal
-
-# Python cache files
-__pycache__/
-*.py[cod]
-*$py.class
-*.so
-
-# Private content generation scripts (keep these in separate private repo)
-main.py
-main_backup.py
-*_generation.py
-content_gen/
-
-# Development files
-.pytest_cache/
-.coverage
-.nyc_output
-
 # OS generated files
 .DS_Store
 .DS_Store?
