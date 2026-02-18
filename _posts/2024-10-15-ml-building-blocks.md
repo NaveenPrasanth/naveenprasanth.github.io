@@ -10,8 +10,6 @@ tags:
 excerpt: "I started browsing Kaggle competitions today and noticed something. Every notebook follows the same playbook."
 ---
 
-For people who don't have energy or time today, there is a TLDR at the bottom. I would appreciate it if you come back and read the full blog.
-
 ### How this started
 
 I often find myself going down rabbit holes. Today's rabbit hole was Kaggle. I started clicking through starter notebooks for NLP competitions. The kind where people predict which chatbot response a human would prefer, or classify text into categories.
