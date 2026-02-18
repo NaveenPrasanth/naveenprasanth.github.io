@@ -11,12 +11,16 @@ I'm a Principal AI Platform Engineer with 9+ years of experience building large-
 
 I lead platform architecture and AI strategy at **Saama Technologies**, where I've built LLM-powered document automation systems for regulated clinical environments. This includes designing RAG pipelines with domain-specific embeddings serving 120+ active clinical users, and HIPAA-compliant multi-tenant architectures processing 1M+ records per cycle.
 
-On the side, I've architected AI platforms as a freelance solutions architect — from an AI avatar + content intelligence platform (**Hypermatter**) to agentic LLM pipelines powering real-time voice ordering (**Valari**), processing 9,000+ live orders.
+On the side, I've architected AI platforms as a freelance solutions architect. An AI avatar + content intelligence platform (**Hypermatter**) and agentic LLM pipelines powering real-time voice ordering (**Valari**), processing 9,000+ live orders.
 
 ## Education
 
-- **M.Tech in AI and Machine Learning** — BITS Pilani (2023–2025)
+- **M.Tech in AI and Machine Learning**, BITS Pilani (2023-2025)
   - Thesis: *Standardizing Protocol Documentation Using Clinical Ontologies and Conversational AI*
-- **B.Tech in Computer Science** — Pondicherry Engineering College (2013–2017)
+- **B.Tech in Computer Science**, Pondicherry Engineering College (2013-2017)
+
+## Away From the Screen
+
+I play cricket on weekends, cycle when the English weather allows it, and run roads when it doesn't. I also try to get out for hikes and treks whenever I can. If I'm not writing code or reading papers, I'm probably outside doing one of these.
 
 Feel free to reach out via [LinkedIn](https://www.linkedin.com/in/naveen-prasanth-s/) or [GitHub](https://github.com/NaveenPrasanth).
