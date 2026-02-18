@@ -1,14 +1,13 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
+<link rel="stylesheet" href="{{ '/assets/css/custom.css' | relative_url }}?v={{ site.time | date: '%s' }}">
 <script>
-  // Clear all caches on page load
   if ('caches' in window) {
     caches.keys().then(function(names) {
       for (var name of names) caches.delete(name);
     });
   }
-  // Unregister any service workers
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.getRegistrations().then(function(registrations) {
       for (var registration of registrations) registration.unregister();
