@@ -17,7 +17,7 @@ author:
   name: "Naveen Prasanth"
   avatar: "/assets/img/pic.png"
   bio: "Principal AI Platform Engineer. Building production LLM systems, RAG pipelines, and multi-tenant platforms in healthcare and fintech."
-  location: "United Kingdom"
+  location: "Crawley, United Kingdom"
   links:
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
@@ -69,6 +69,7 @@ defaults:
       author_profile: true
       read_time: true
       show_date: true
+      show_category: true
       comments: false
       share: true
       related: true
